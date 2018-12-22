@@ -3,7 +3,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-import fmna.common.funcs as funcs
+import fmna as funcs
 
 means = [0, 0]
 S = [[1, 0.5], [0.5, 1]]

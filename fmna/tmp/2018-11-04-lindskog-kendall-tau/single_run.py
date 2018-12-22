@@ -1,18 +1,11 @@
 #!/usr/bin/python
 
 import math
-import sys
-sys.path.append('../common')
 
-import funcs
 import numpy as np
 import scipy.stats as stats
 
-
-
-
-
-
+import fmna as funcs
 
 means = [0, 0]
 S = [[1, 0.5], [0.5, 1]]

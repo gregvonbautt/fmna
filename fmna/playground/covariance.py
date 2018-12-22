@@ -4,7 +4,7 @@ import math
 
 import numpy as np
 
-import fmna.common.funcs as funcs
+import fmna as funcs
 
 corr = 0.5
 means = [0, 0]
