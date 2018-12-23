@@ -15,6 +15,6 @@ def dir():
 
 
 def run_x_times(x, f):
-    for i in range(0, 300):
+    for i in range(0, x):
         print("===== RUN %s/%s =====" % (i, x))
         f()
