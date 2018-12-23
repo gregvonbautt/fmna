@@ -21,4 +21,3 @@ raw = genfromtxt("%s/raw.csv" % sys.argv[1], delimiter=',')
 simple_scatter("Standard Estimator", raw[:, 0], [-1, 1])
 simple_scatter("Kendall's tau Transform", raw[:, 2], [-1, 1])
 simple_scatter("Sign Transform", raw[:, 5], [-1, 1])
-

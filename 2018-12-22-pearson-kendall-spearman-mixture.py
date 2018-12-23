@@ -1,7 +1,7 @@
 import numpy as np
 
-import fmna.common.experiment as exp
-import fmna.common.generate as generate
+import fmna.experiment as exp
+import fmna.generate as generate
 
 fields = [
     ["corr_coef", "DECIMAL(3, 2)"],

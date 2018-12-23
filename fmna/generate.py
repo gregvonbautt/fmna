@@ -1,6 +1,10 @@
 import numpy as np
 
 
+def multivariate_normal(m, S, n):
+    return np.random.multivariate_normal(m, S, n)
+
+
 def multivariate_t(m, S, df=np.inf, n=1):
     m = np.asarray(m)
     d = len(m)

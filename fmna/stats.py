@@ -13,7 +13,7 @@ def corr_sign(v1, v2):
 
 
 def corr_sign_no_means(v1, v2):
-    return sum((v1 - math.mean(v1)> 0) == (v2 - math.mean(v2) > 0)) * 1.0 / v1.shape[0]
+    return sum((v1 - np.mean(v1)> 0) == (v2 - np.mean(v2) > 0)) * 1.0 / v1.shape[0]
 
 
 def corr_kendall(v1, v2):
@@ -26,8 +26,10 @@ def corr_spearman(v1, v2):
 
 def to_pearson_from(type, value):
     if type == "sign":
-        return math.sin(math.pi * (value - 0.5))
+        return math.sin((value - 0.5) * math.pi)
     elif type == "kendall":
-        return math.sin(math.pi * value / 2)
+        return math.sin(value * math.pi / 2)
+    elif type == "spearman":
+        return math.sin(value * math.pi / 6) * 2
     else:
         raise Exception("Cannot convert from to pearson from " + type)
