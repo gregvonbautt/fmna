@@ -41,11 +41,19 @@ def insert(values):
     update(insert)
 
 
-def load(where=""):
-    request = "SELECT * FROM %s" % exp.table_name()
+def load(what="*", where=""):
+    request = "SELECT %s FROM %s" % (what, exp.table_name())
     if len(where) > 0:
         request += " WHERE %s" % where
 
+    print(request)
+    cnx = connect()
+    cursor = cnx.cursor()
+    cursor.execute(request)
+    return cursor.fetchall()
+
+
+def arbitrary_select(request):
     print(request)
     cnx = connect()
     cursor = cnx.cursor()
