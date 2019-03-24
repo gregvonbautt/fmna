@@ -33,3 +33,21 @@ def to_pearson_from(type, value):
         return math.sin(value * math.pi / 6) * 2
     else:
         raise Exception("Cannot convert from to pearson from " + type)
+
+def corr_matr(obs, corr_func):
+    num_vars = obs.shape[1]
+    res = np.zeros(shape=[num_vars, num_vars])
+    for i in range(0, num_vars):
+        for j in range(0, num_vars):
+            v1 = obs[:, i]
+            v2 = obs[:, j]
+            res[i, j] = corr_func(v1, v2)
+    return res
+
+def to_pearson_from_matr(type, m):
+    res = np.zeros(m.shape)
+    for i in range(0, res.shape[0]):
+        for j in range(0, res.shape[0]):
+            res[i, j] = to_pearson_from(type, m[i, j])
+    return res
+
