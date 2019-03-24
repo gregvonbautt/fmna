@@ -5,7 +5,7 @@ import scipy.sparse.csgraph as csgraph
 
 import graphviz as gv
 
-from fmna import db, stats, generate, experiment
+from fmna import db, stats, generate, experiment, graph
 
 
 def log_yield(p1, p2):
@@ -91,12 +91,21 @@ def run_with_num_obs(market, mix_p, means, S, num_obs):
 
 def single_run():
     for mix_p in np.linspace(0, 1, 21):
-        print(mix_p)
         run_with_num_obs(market, mix_p, means, C, num_obs)
+
+def result():
+    table = experiment.table_name()
+    select = "SELECT mix_p, AVG(pearson), AVG(sign_transform), AVG(kendall_transform), AVG(spearman_transform) " \
+             "FROM %s WHERE market='%s' AND num_obs=%s GROUP BY mix_p" % (table, market, num_obs)
+    return db.arbitrary_select(select)
+
+def build_series(res, idx, title):
+    return [list(map(lambda v: float(v[0]), res)), list(map(lambda v: v[idx], res)), title]
+
 
 # =======================================================
 
-market = 'france'
+market = 'usa'
 tickers, yields = calc_yields('data/data-{}.csv'.format(market), 50)
 means = np.mean(yields, 0)
 C = np.corrcoef(np.transpose(yields))
@@ -104,7 +113,14 @@ C = np.corrcoef(np.transpose(yields))
 TRUE_MST = build_mst(C)
 # draw_mst(TRUE_MST)
 
-table_setup()
+#table_setup()
 num_obs = 250
-experiment.run_x_times(10, single_run)
+#experiment.run_x_times(10, single_run)
 
+res = result()
+graph.simple_graph(market, [
+    build_series(res, 1, "Pearson"),
+    build_series(res, 2, "Sign"),
+    build_series(res, 3, "Kendall"),
+    build_series(res, 4, "Spearman")
+], [0, 1], [0, 50])
